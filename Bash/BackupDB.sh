@@ -49,7 +49,12 @@
     #compress using gzip tar
         tar -cpzf $zip_name $backup_name
         #Delete raw dump file if applicable
-        #Send Backup Weekly to Remote Server  
+        if [ "$?" -eq 0 ]
+                then
+                #Send the Backup
+                rm -f *.sql
+        fi
+        #Send Backup Weekly to Remote Server
         if [ "$?" -eq 0 ] && [ $week = "Wed" ]
                 then
                 #Send the Backup
