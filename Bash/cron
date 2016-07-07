@@ -1,0 +1,12 @@
+#m h dom mn dow command
+
+#first back up of the day
+* 7 * * * BackupDB_daily.sh
+
+#2nd back up of the day
+* 15 * * * BackupDB_daily.sh
+
+#last back up for the day(Daily backup)
+* 23 * * * BackupDB_daily.sh
+
+
