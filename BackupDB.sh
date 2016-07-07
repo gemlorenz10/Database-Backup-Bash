@@ -14,7 +14,6 @@
         #Put Parameters here
 #---------------------
 #Finding Prefix/labeling i.e Last_Wedof$backup_name
-
             week=$(date +%a)
             last_7day=$(date -d "`date +%Y%m01` +1 month -7day" +%d)
             today=$(date +%d)
@@ -26,7 +25,6 @@
                 else
                 prefix_name=""
                 fi
-
 #Database Parameters
         userdb=root
         password=root
@@ -43,10 +41,10 @@
         server=192.168.0.251
         remote_dir=/home/gem/
 
-#Bash process start
+#Backing up rocess start
 
-#go to backup directory
-cd $backup_dir
+    #go to backup directory
+    cd $backup_dir
     #create a database dump file
     mysqldump -u$userdb -p$password --single-transaction --quick --lock-tables=false $database > $backup_name
     #if successful
@@ -54,15 +52,11 @@ cd $backup_dir
     then
     #compress using gzip tar
         tar -cpzf $zip_name $backup_name
-
-
-
-
-  #Send Backup Daily to Remote Server  
+        #Send Backup Daily to Remote Server  
         if [ "$?" -eq 0 ] && [ $week = "Wed" ]
-        then
-        #Send the Backup
-        	scp -q $zip_name $user@$server:$remote_dir
+                then
+                #Send the Backup
+                scp -q $zip_name $user@$server:$remote_dir
         fi
     #end if for zipping
     fi
