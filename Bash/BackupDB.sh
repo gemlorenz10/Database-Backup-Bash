@@ -2,23 +2,31 @@
 #filename BackupDB.sh
 #filename sample for backup Prefix_JAN_10_Wed_1630DBbackup.tar.gz
 #get time and date
+        #minutes
         min=$(date +%M)
+        #hour
         hour=$(date +%H)
+        #day of month
         dom=$(date +%d)
+        #month name
         mname=$(date +%b)
+        #month in number
         mnum=$(date +%m)
+        #day of week
         dow=$(date +%a)
+        #year
         year=$(date +%Y)
+        prefix_date=$mname"_"$dom"_"$dow"_"$hour"."$min
 #---------------------
-#Finding Prefix/labeling i.e Last_Wedof$backup_name
+#Finding Prefix/labeling i.e Last_Wed_of_$backup_name
             week=$(date +%a)
-            last_7day=$(date -d "`date +%Y%m01` +1 month -7day" +%d)
+            last_7day=$(date -d "`date %+Y%m01` +1 month -7day" +%d)
             today=$(date +%d)
             #if today > last 7 days of the Month
                 if [ $today -ge $last_7day ] && [ "$week" = "Wed" ];
                 then
                 #true
-                prefix_name="Last_Wedof_"
+                prefix_name="Last_Wednesday_of_"
                 else
                 prefix_name=""
                 fi
@@ -27,16 +35,16 @@
         userdb=root
         password=root
         database=names_db
-        backup_name=$prefix_name$mname"_"$dom"_"$dow"_"$hour"."$min$database"."sql
+        backup_name=$prefix_name$prefix_date$database"."sql
         backup_dir=backupdb/
 #----------------------
 #Compress/Zip Variables
 #Name of backup when zipped
-        zip_name=$prefix_name$mname"_"$dom"_"$dow"_"$hour"."$min$database"."tar.gz
+        zip_name=$prefix_name$prefix_date$database"."tar.gz
 #---------------------
 #SCP Variables
         user=root
-        server=192.168.0.251
+        backup_server=192.168.0.251
         remote_dir=/home/gem/
 #Backing up rocess start
     #go to backup directory
@@ -51,14 +59,13 @@
         #Delete raw dump file if applicable
         if [ "$?" -eq 0 ]
                 then
-                #Send the Backup
+                #after zipping delete the raw dump file
                 rm -f *.sql
         fi
         #Send Backup Weekly to Remote Server
         if [ "$?" -eq 0 ] && [ $week = "Wed" ]
                 then
                 #Send the Backup
-                scp -q $zip_name $user@$server:$remote_dir
+                scp -q $zip_name $user@$backup_server:$remote_dir
         fi
-    #end if for zipping
     fi
