@@ -7,7 +7,7 @@
 #---------------------
 #Finding Prefix/labeling i.e Last_Wed_of_$backup_name
             week=$(date +%a)
-            last_7day=$(date -d "`date %+Y%m01` +1 month -7day" +%d)
+            last_7day=$(date -d "`date +%Y%m01` +1 month -7days" +%d)
             today=$(date +%d)
             #if today > last 7 days of the Month
                 if [ $today -ge $last_7day ] && [ "$week" = "Wed" ];
