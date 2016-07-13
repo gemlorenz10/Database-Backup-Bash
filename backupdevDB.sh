@@ -15,12 +15,12 @@
         remote_dir=/backup
 #--------------Dynamic Variables
 #get time and date
-prefix_date=$(date +%b_%d_%a"_"%H"."%M)
+        prefix_date=$(date +%b_%d_%a"_"%H"."%M)
         #Get the Last Wednesday Add it to as prefix
-            week=$(date +%a)
-            last_7day=$(date -d "`date +%Y%m01` +1 month -7days" +%d)
-            today=$(date +%d)
-            #if today >= last 7 days of the Month
+        week=$(date +%a)
+        last_7day=$(date -d "`date +%Y%m01` +1 month -7days" +%d)
+        today=$(date +%d)
+        #if today >= last 7 days of the Month
                 if [ $today -ge $last_7day ] && [ "$week" = "Wed" ];
                 then
                 prefix_name="Last_Wednesday_of_"
@@ -50,13 +50,13 @@ prefix_date=$(date +%b_%d_%a"_"%H"."%M)
         #Delete raw dump file
         if [ "$?" -eq 0 ]
         then
-                #after zipping delete the raw dump file
+        #after zipping delete the raw dump file
                 rm -f *.sql
         fi
         #Send Backup Weekly to Remote Server
         if [ "$?" -eq 0 ] && [ $week = "Wed" ]
         then
-                #Send the Backup
+        #Send the Backup
                 scp -q $zip_name $user@$backup_server:$remote_dir
         fi
     fi
