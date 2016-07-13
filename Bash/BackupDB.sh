@@ -2,21 +2,7 @@
 #filename BackupDB.sh
 #filename sample for backup Prefix_JAN_10_Wed_1630DBbackup.tar.gz
 #get time and date
-        #minutes
-        min=$(date +%M)
-        #hour
-        hour=$(date +%H)
-        #day of month
-        dom=$(date +%d)
-        #month name
-        mname=$(date +%b)
-        #month in number
-        mnum=$(date +%m)
-        #day of week
-        dow=$(date +%a)
-        #year
-        year=$(date +%Y)
-        prefix_date=$mname"_"$dom"_"$dow"_"$hour"."$min
+        prefix_date=$(date +%b_%d_%a"_"%H"."%M)
 #---------------------
 #Finding Prefix/labeling i.e Last_Wed_of_$backup_name
             week=$(date +%a)
