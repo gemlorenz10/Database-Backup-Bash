@@ -6,11 +6,9 @@
 #$raw is the variable of the raw file or directory
 #$backupname wil be the name of the archived and zipped raw file
 #$remotedir is the directory in your remote backup server where you want your backup files to be saved
-raw=/www/file-upload
-backupname=file-upload.tar.gz
+raw=/www/wordpress
+backupname=wordpress.tar.gz
 remotedir=/backup/
-
-
 #compressed zip the raw file or directory
 tar -czpf $backupfile $rawfile 
 if [ "$?" -eq 0 ];then
