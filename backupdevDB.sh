@@ -15,12 +15,12 @@
         remote_dir=/backup
 #--------------Dynamic Variables
 #get time and date
-        prefix_date=$(date +%b_%d_%a"_"%H"."%M)
-#Find Prefix/labeling i.e Last_Wed_of_$backup_name
+prefix_date=$(date +%b_%d_%a"_"%H"."%M)
+        #Get the Last Wednesday Add it to as prefix
             week=$(date +%a)
             last_7day=$(date -d "`date +%Y%m01` +1 month -7days" +%d)
             today=$(date +%d)
-            #if today > last 7 days of the Month
+            #if today >= last 7 days of the Month
                 if [ $today -ge $last_7day ] && [ "$week" = "Wed" ];
                 then
                 prefix_name="Last_Wednesday_of_"
@@ -35,10 +35,9 @@
 #Backing up process start
     #Scan if the directory exists then create it
     if [ -d "$backup_dir" ]; then
-    # Will enter here if $DIRECTORY exists, even if it contains spaces
-        mkdir $backup_dir
         cd $backup_dir
         else
+        mkdir $backup_dir
         cd $backup_dir
     fi
     #create the database dump file
