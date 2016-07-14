@@ -35,3 +35,17 @@
        gzip -qf $backup_dst/$today"_"$database.sql
         #Send Backup Everyday
     fi
+    
+    
+ #make sure you installed rsync o both machines
+ #run this command via cron in remote backup server
+ #make sure the machines can talk to each other via ssh-key
+ #rsync --progress --delete-after -r -e ssh root@192.168.0.250:/backupdb/ backup/
+ #
+ #
+ #
+    
+    
+    
+    
+    
