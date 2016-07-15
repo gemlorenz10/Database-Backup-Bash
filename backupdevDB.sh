@@ -24,7 +24,7 @@
 #Backing up process start
     #Scan if the directory exists then create it
     if [ -d "$backup_dst" ]; then
-        echo existing >> dev/null
+        echo existing >> /dev/null
         else
         mkdir $backup_dst
     fi
@@ -37,7 +37,7 @@ then
         #Send Backup Everyday
         if [ "$?" -eq 0 ]; then
         #this echo will just redirected to null, to nothing
-            echo "success" >> dev/null
+            echo "success" >> /dev/null
         else
         #if zipping fails write on error log
             echo $(date +%d_%B_%Y)" Error Zipping the dump file" >> $error_log
